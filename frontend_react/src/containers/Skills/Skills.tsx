@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { client, urlFor } from '../../client';
 import { Experience, Skill, Work } from '../../constants/interfaces';
 import { Tooltip } from 'react-tooltip';
+import { AppWrap, MotionWrap } from '../../wrapper';
 
 const Skills = () => {
   const [experience, setExperience] = useState([] as Experience[]);
@@ -79,4 +80,8 @@ const Skills = () => {
   );
 };
 
-export default Skills;
+export default AppWrap(
+  MotionWrap(Skills, 'app__skills'),
+  'skills',
+  'app__primary'
+);

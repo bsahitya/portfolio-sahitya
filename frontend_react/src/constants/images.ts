@@ -16,7 +16,6 @@ import react from '../assets/react.png';
 import redux from '../assets/redux.png';
 import sass from '../assets/sass.png';
 import typescript from '../assets/typescript.png';
-import vue from '../assets/vue.png';
 import angular from '../assets/angular.png';
 
 import about01 from '../assets/about01.png';
@@ -55,7 +54,6 @@ export default {
   redux,
   sass,
   typescript,
-  vue,
   about01,
   about02,
   about03,

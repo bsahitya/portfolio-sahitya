@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import './About.scss';
 import { client, urlFor } from '../../client';
 import { AboutEntity } from '../../constants/interfaces';
+import { AppWrap, MotionWrap } from '../../wrapper';
 
 const About = () => {
   const [abouts, setAbouts] = useState([] as AboutEntity[]);
@@ -45,4 +46,8 @@ const About = () => {
   );
 };
 
-export default About;
+export default AppWrap(
+  MotionWrap(About, 'app__about'),
+  'about',
+  'app__whitebg'
+);

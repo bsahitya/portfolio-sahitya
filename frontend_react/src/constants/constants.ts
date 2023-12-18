@@ -1,4 +1,4 @@
-export const Pages = ['home', 'about', 'work', 'skills', 'contact'];
+export const Pages = ['home', 'about', 'skills', 'contact'];
 
 export const WorkExperience = [
   'Infosys',
