@@ -108,8 +108,8 @@
   padding: 1rem;
 
   div {
-    width: 40px;
-    height: 40px;
+    width: 39px;
+    height: 39px;
     border-radius: 50%;
     background-color: var(--white-color);
     margin: 0.25rem 0;
@@ -120,6 +120,11 @@
     align-items: center;
 
     transition: all 0.3s ease-in-out;
+
+    a {
+      height: 15px;
+      text-decoration: none;
+    }
 
     svg {
       width: 15px;
