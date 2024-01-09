@@ -1,8 +1,8 @@
 import { useState } from 'react';
+import emailjs from '@emailjs/browser';
 
 import images from '../../constants/images';
 import { AppWrap, MotionWrap } from '../../wrapper';
-import { client } from '../../client';
 import './Footer.scss';
 
 const Footer = () => {
@@ -17,29 +17,48 @@ const Footer = () => {
 
   const { name, email, message } = formData;
 
-  const handleChangeInput = (e: any) => {
+  const handleChangeInput = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
     setLoading(true);
 
-    const contact = {
-      _type: 'contact',
-      name,
-      email,
-      message,
+    const templateParams = {
+      from_name: name,
+      from_email: email,
+      to_name: 'Sahitya',
+      message: message,
     };
-    client.create(contact).then(() => {
-      setLoading(false);
-      setIsFormSubmitted(true);
-    });
+
+    const {
+      VITE_EMAILJS_SERVICE_ID,
+      VITE_EMAILJS_TEMPLATE_ID,
+      VITE_EMAILJS_PUB_KEY,
+    } = import.meta.env;
+
+    emailjs
+      .send(
+        VITE_EMAILJS_SERVICE_ID,
+        VITE_EMAILJS_TEMPLATE_ID,
+        templateParams,
+        VITE_EMAILJS_PUB_KEY
+      )
+      .then(() => {
+        setLoading(false);
+        setIsFormSubmitted(true);
+      })
+      .catch((error) => {
+        console.log('Error sending email: ', error);
+      });
   };
 
   return (
     <>
-      <h2 className='head-text'>Chat with me!</h2>
+      <h2 className='head-text'>Connect with me!</h2>
       <div className='app__footer-cards'>
         <div className='app__footer-card'>
           <img src={images.email} alt='email' />
@@ -47,16 +66,10 @@ const Footer = () => {
             sahitya.buddharaju@gmail.com
           </a>
         </div>
-        <div className='app__footer-card'>
-          <img src={images.mobile} alt='mobile' />
-          <a href='tel: +1 (901) 565-4141' className='p-text'>
-            +1 (901) 565-4141
-          </a>
-        </div>
       </div>
 
       {!isFormSubmitted ? (
-        <div className='app__footer-form app__flex'>
+        <form className='app__footer-form app__flex' onSubmit={handleSubmit}>
           <div className='app__flex'>
             <input
               type='text'
@@ -65,16 +78,18 @@ const Footer = () => {
               value={name}
               onChange={handleChangeInput}
               name='name'
+              required
             />
           </div>
           <div className='app__flex'>
             <input
-              type='text'
+              type='email'
               className='p-text'
               placeholder='Your Email'
               value={email}
               onChange={handleChangeInput}
               name='email'
+              required
             />
           </div>
           <div>
@@ -83,12 +98,13 @@ const Footer = () => {
               name='message'
               placeholder='Message'
               value={message}
-              onChange={handleChangeInput}></textarea>
+              onChange={handleChangeInput}
+              required></textarea>
           </div>
-          <button className='p-text' type='button' onClick={handleSubmit}>
+          <button className='p-text' type='submit'>
             {loading ? 'Sending' : 'Send Message'}
           </button>
-        </div>
+        </form>
       ) : (
         <div>
           <h3 className='head-text'>Thank you for getting in touch.</h3>
