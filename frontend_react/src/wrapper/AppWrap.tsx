@@ -8,7 +8,7 @@ const AppWrap = (Component, idName: string, classNames?: string[]) =>
         <div className='app__wrapper app__flex'>
           <Component />
           <div className='copyright'>
-            <p className='p-text'>&copy; 2023 SAHITYA BUDDHARAJU</p>
+            <p className='p-text'>&copy; {new Date().getFullYear()} SAHITYA BUDDHARAJU</p>
             <p className='p-text'>All rights reserved</p>
           </div>
         </div>
